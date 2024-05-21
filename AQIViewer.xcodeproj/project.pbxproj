@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C7B1BB1A2BF852C400D4CC20 /* AQIViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */; };
-		C7B1BB1C2BF852C400D4CC20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */; };
+		C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */; };
 		C7B1BB1E2BF852C500D4CC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */; };
 		C7B1BB212BF852C500D4CC20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB202BF852C500D4CC20 /* Preview Assets.xcassets */; };
 		C7B1BB292BFABBAF00D4CC20 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */; };
@@ -28,7 +28,7 @@
 /* Begin PBXFileReference section */
 		C7B1BB162BF852C400D4CC20 /* AQIViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AQIViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIViewerApp.swift; sourceTree = "<group>"; };
-		C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIRootView.swift; sourceTree = "<group>"; };
 		C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7B1BB202BF852C500D4CC20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -57,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C71C105B2BFD0FE9008A3874 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		C7B1BB0D2BF852C400D4CC20 = {
 			isa = PBXGroup;
 			children = (
@@ -76,17 +84,14 @@
 		C7B1BB182BF852C400D4CC20 /* AQIViewer */ = {
 			isa = PBXGroup;
 			children = (
-				C7B3DFCD2BFC098F0045551C /* Utility */,
-				C7B1BB352BFB95FB00D4CC20 /* Views */,
 				C7B1BB2E2BFAC50F00D4CC20 /* Info.plist */,
-				C7B1BB272BFABAF500D4CC20 /* Model */,
 				C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */,
-				C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */,
 				C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */,
+				C7B1BB272BFABAF500D4CC20 /* Model */,
 				C7B1BB1F2BF852C500D4CC20 /* Preview Content */,
-				C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */,
-				C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */,
-				C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */,
+				C7B3DFCD2BFC098F0045551C /* Utility */,
+				C71C105B2BFD0FE9008A3874 /* View Model */,
+				C7B1BB352BFB95FB00D4CC20 /* Views */,
 			);
 			path = AQIViewer;
 			sourceTree = "<group>";
@@ -111,11 +116,12 @@
 		C7B1BB352BFB95FB00D4CC20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C7B1BB362BFB960D00D4CC20 /* LocationView.swift */,
-				C7B1BB382BFB96E900D4CC20 /* AQIView.swift */,
-				C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */,
-				C7B3DFC72BFB9F140045551C /* ForecastView.swift */,
 				C7B3DFCB2BFC090B0045551C /* AQICardView.swift */,
+				C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */,
+				C7B1BB382BFB96E900D4CC20 /* AQIView.swift */,
+				C7B3DFC72BFB9F140045551C /* ForecastView.swift */,
+				C7B1BB362BFB960D00D4CC20 /* LocationView.swift */,
+				C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -123,8 +129,10 @@
 		C7B3DFCD2BFC098F0045551C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				C7B3DFCE2BFC09990045551C /* MockData.swift */,
 				C7B3DFD02BFC0E670045551C /* Alert.swift */,
+				C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */,
+				C7B3DFCE2BFC09990045551C /* MockData.swift */,
+				C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -207,7 +215,7 @@
 				C7B3DFCC2BFC090B0045551C /* AQICardView.swift in Sources */,
 				C7B3DFD12BFC0E670045551C /* Alert.swift in Sources */,
 				C7B1BB3B2BFB9D1800D4CC20 /* MeasurementView.swift in Sources */,
-				C7B1BB1C2BF852C400D4CC20 /* ContentView.swift in Sources */,
+				C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */,
 				C7B1BB302BFACA6900D4CC20 /* LocationManager.swift in Sources */,
 				C7B1BB322BFB7BF200D4CC20 /* AQIInfo.swift in Sources */,
 				C7B1BB2D2BFAC10E00D4CC20 /* AQIViewModel.swift in Sources */,

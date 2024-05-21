@@ -11,7 +11,7 @@ import SwiftUI
 struct AQIViewerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AQIRootView()
         }
     }
 }

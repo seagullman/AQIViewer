@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  AQIRootView.swift
 //  AQIViewer
 //
 //  Created by Brad Siegel on 5/17/24.
@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State private var searchText = ""
-    
+struct AQIRootView: View {
     @State var viewModel = AQIViewModel()
     
     var body: some View {
@@ -28,7 +26,7 @@ struct ContentView: View {
         .onAppear { fetchAQIData() }
         .onChange(of: viewModel.locationManager.lastLocation) { fetchAQIData() }
         .refreshable { viewModel.locationManager.refreshLocation() }
-        .searchable(text: $searchText, prompt: "Search for city")
+        .searchable(text: $viewModel.searchText, prompt: "Search for city")
         .onSubmit(of: .search, runSearch)
         .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
@@ -40,10 +38,10 @@ struct ContentView: View {
     }
     
     func runSearch() {
-        Task { await viewModel.fetchAQIDataBy(cityName: searchText) }
+        Task { await viewModel.fetchAQIDataBy(cityName: viewModel.searchText) }
     }
 }
 
 #Preview {
-    ContentView()
+    AQIRootView()
 }

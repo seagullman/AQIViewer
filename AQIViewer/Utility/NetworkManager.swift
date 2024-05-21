@@ -38,10 +38,15 @@ class NetworkManager: NetworkClient {
     }
     
     func fetchAQIDataBy(cityName: String) async throws -> AQIResponse {
-        let urlString = baseURL.appending("\(cityName)/?token=\(testToken)")
-        let response: AQIResponse = try await makeRequest(urlString: urlString)
-        print("***** CITY NAME: \(response.data.city.location)")
-        return response
+        if let encodedCityName = encodeForURL(cityName) {
+            let urlString = baseURL.appending("\(encodedCityName)/?token=\(testToken)")
+            print("***** USING THIS URL (city search): \(urlString)")
+            
+            let response: AQIResponse = try await makeRequest(urlString: urlString)
+            return response
+        } else {
+            throw AQIError.invalidData
+        }
     }
     
     // MARK: Private functions
@@ -67,5 +72,9 @@ class NetworkManager: NetworkClient {
         } catch {
             throw AQIError.invalidData
         }
+    }
+    
+    private func encodeForURL(_ string: String) -> String? {
+        return string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }

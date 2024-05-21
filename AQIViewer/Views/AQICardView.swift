@@ -50,8 +50,22 @@ struct AQICardView: View {
                         )
                     }
                 }
+                
+                
+                HStack {
+                    Spacer()
+                    Text("Last updated \(currentTimestamp())")
+                    Spacer()
+                }
+                .font(.system(size: 10))
+                .foregroundStyle(.secondary)
+                .padding(.top, 5)
             }
         }
+    }
+    
+    func currentTimestamp() -> String {
+        return DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
     }
 }
 

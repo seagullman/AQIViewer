@@ -25,6 +25,6 @@ struct AlertContext {
                                           dismissButton: .default(Text("OK")))
     
     static let invalidData = AlertItem(title: Text("Something went wrong"),
-                                          message: Text("There was an issue completing your request. Please try again in a few minutes."),
+                                          message: Text("There was an issue completing your request. There may not be any AQI data for the requested location. Please try again in a few minutes."),
                                           dismissButton: .default(Text("OK")))
 }

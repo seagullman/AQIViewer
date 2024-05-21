@@ -10,6 +10,7 @@ import SwiftUI
 @Observable
 class AQIViewModel {
     
+    var searchText = ""
     let locationManager = LocationManager()
     var aqiInfo: AQIInfo?
     var isLoading: Bool = false
@@ -23,45 +24,49 @@ class AQIViewModel {
             let long = lastLocationCoordinate?.longitude
         else { return }
         
-        isLoading.toggle()
+        isLoading = true
         
         do {
             let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
             aqiInfo = createAQIInfo(from: response)
         } catch {
             print("***** TODO: catch error for fetchAQIDataBy lat long")
-            let alertItem: AlertItem
-            if let aqiError = error as? AQIError {
-                switch aqiError {
-                case .invalidUrl:
-                    alertItem = AlertContext.invalidUrl
-                case .invalidResponse:
-                    alertItem = AlertContext.invalidResponse
-                case .invalidData:
-                    alertItem = AlertContext.invalidData
-                }
-            } else {
-                alertItem = AlertContext.invalidResponse
-            }
-            self.alertItem = alertItem
+            handleError(error: error)
         }
-        isLoading.toggle()
+        isLoading = false
     }
     
     func fetchAQIDataBy(cityName: String) async {
         do {
-            isLoading.toggle()
+            isLoading = true
             
             let response = try await NetworkManager.shared.fetchAQIDataBy(cityName: cityName)
             aqiInfo = createAQIInfo(from: response)
         } catch {
-            print(error)
+            handleError(error: error)
             print("***** TODO: catch error for fetchAQIDataBy(cityName")
         }
-        isLoading.toggle()
+        isLoading = false
     }
     
     // MARK: Private functions
+    
+    private func handleError(error: Error) {
+        let alertItem: AlertItem
+        if let aqiError = error as? AQIError {
+            switch aqiError {
+            case .invalidUrl:
+                alertItem = AlertContext.invalidUrl
+            case .invalidResponse:
+                alertItem = AlertContext.invalidResponse
+            case .invalidData:
+                alertItem = AlertContext.invalidData
+            }
+        } else {
+            alertItem = AlertContext.invalidResponse
+        }
+        self.alertItem = alertItem
+    }
     
     private func createAQIInfo(from response: AQIResponse) -> AQIInfo {
 //        let dateFormatterNew = DateFormatter()
