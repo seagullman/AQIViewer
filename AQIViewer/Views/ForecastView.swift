@@ -10,9 +10,9 @@ import SwiftUI
 struct ForecastView: View {
     
     let title: String
-    let o3: Int
-    let pm10: Int
-    let pm25: Int
+    let o3: Int?
+    let pm10: Int?
+    let pm25: Int?
     
     var body: some View {
         VStack(spacing: 5) {

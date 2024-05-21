@@ -18,7 +18,7 @@ struct AQIInfo {
 }
 
 struct AQIMeasurements {
-    let o3: Pollutant
-    let pm10: Pollutant
-    let pm25: Pollutant
+    let o3: Pollutant?
+    let pm10: Pollutant?
+    let pm25: Pollutant?
 }

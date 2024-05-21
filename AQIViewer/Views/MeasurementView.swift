@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct MeasurementView: View {
-    let measurement: Int
+    let measurement: Int?
     let text: String
     
     var body: some View {
-        VStack {
-            Text(String(measurement))
-                .font(.title3)
-            Text(text)
-                .font(.system(.caption))
+        if let measurement {
+            VStack {
+                Text(String(measurement))
+                    .font(.title3)
+                Text(text)
+                    .font(.system(.caption))
+            }
+            .foregroundStyle(.secondary)
         }
-        .foregroundStyle(.secondary)
     }
 }
 

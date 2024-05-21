@@ -9,16 +9,16 @@ import SwiftUI
 
 struct AQIView: View {
     
-    let aqi: Int
-    let o3: Int
-    let pm10: Int
-    let pm25: Int
+    let aqi: Int?
+    let o3: Int?
+    let pm10: Int?
+    let pm25: Int?
     
     var body: some View {
         GroupBox("Currently") {
             VStack(spacing: 25) {
                 VStack {
-                    Text(String(aqi))
+                    Text(String(aqi ?? 0))
                         .font(.system(size: 50))
                     
                     Text("AQI")

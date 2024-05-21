@@ -22,18 +22,18 @@ struct AQICardView: View {
                 
                 AQIView(
                     aqi: aqiInfo.aqi,
-                    o3: aqiInfo.current.o3.avg,
-                    pm10: aqiInfo.current.pm10.avg,
-                    pm25: aqiInfo.current.pm25.avg
+                    o3: aqiInfo.current.o3?.avg,
+                    pm10: aqiInfo.current.pm10?.avg,
+                    pm25: aqiInfo.current.pm25?.avg
                 )
                 
                 GroupBox {
                     HStack {
                         ForecastView(
                             title: "Yesterday",
-                            o3: aqiInfo.yesterday.o3.avg,
-                            pm10: aqiInfo.yesterday.pm10.avg,
-                            pm25: aqiInfo.yesterday.pm25.avg
+                            o3: aqiInfo.yesterday.o3?.avg,
+                            pm10: aqiInfo.yesterday.pm10?.avg,
+                            pm25: aqiInfo.yesterday.pm25?.avg
                         )
                         
                         Spacer()
@@ -44,9 +44,9 @@ struct AQICardView: View {
                         
                         ForecastView(
                             title: "Tomorrow",
-                            o3: aqiInfo.tomorrow.o3.avg,
-                            pm10: aqiInfo.tomorrow.pm10.avg,
-                            pm25: aqiInfo.tomorrow.pm25.avg
+                            o3: aqiInfo.tomorrow.o3?.avg,
+                            pm10: aqiInfo.tomorrow.pm10?.avg,
+                            pm25: aqiInfo.tomorrow.pm25?.avg
                         )
                     }
                 }
