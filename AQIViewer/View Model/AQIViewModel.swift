@@ -7,14 +7,20 @@
 
 import SwiftUI
 
+enum Day {
+    case yesterday
+    case today
+    case tomorrow
+}
+
 @Observable
 class AQIViewModel {
     
-    var searchText = ""
     let locationManager = LocationManager()
+    var alertItem: AlertItem?
     var aqiInfo: AQIInfo?
     var isLoading: Bool = false
-    var alertItem: AlertItem?
+    var searchText = ""
     
     func fetchAQIDataByLatLong() async {
         let lastLocationCoordinate = locationManager.lastLocation?.coordinate
@@ -69,18 +75,23 @@ class AQIViewModel {
     }
     
     private func createAQIInfo(from response: AQIResponse) -> AQIInfo {
-//        let dateFormatterNew = DateFormatter()
-//                dateFormatterNew.dateFormat = "yyyy-MM-dd"
-//        
-//        let o3Yesterday = response.data.forecast.daily.o3.filter { pollutant in
-//            let dateString = pollutant.day
-//
-//        }
-        let yesterday = AQIMeasurements(o3: response.data.forecast.daily.o3[1], pm10: response.data.forecast.daily.pm10[1], pm25: response.data.forecast.daily.pm25[1])
+        let yesterday = AQIMeasurements(
+            o3: getPollutant(for: .yesterday, all: response.data.forecast.daily.o3)!,
+            pm10: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm10)!,
+            pm25: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm25)!
+        )
         
-        let current = AQIMeasurements(o3: response.data.forecast.daily.o3[2], pm10: response.data.forecast.daily.pm10[2], pm25: response.data.forecast.daily.pm25[2])
+        let current = AQIMeasurements(
+            o3: getPollutant(for: .today, all: response.data.forecast.daily.o3)!,
+            pm10: getPollutant(for: .today, all: response.data.forecast.daily.pm10)!,
+            pm25: getPollutant(for: .today, all: response.data.forecast.daily.pm25)!
+        )
         
-        let tomorrow = AQIMeasurements(o3: response.data.forecast.daily.o3[3], pm10: response.data.forecast.daily.pm10[3], pm25: response.data.forecast.daily.pm25[3])
+        let tomorrow = AQIMeasurements(
+            o3: getPollutant(for: .tomorrow, all: response.data.forecast.daily.o3)!,
+            pm10: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm10)!,
+            pm25: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm25)!
+        )
         
         let info = AQIInfo(
             name: response.data.city.name,
@@ -93,5 +104,46 @@ class AQIViewModel {
         )
         
         return info
+    }
+    
+    private func getPollutant(for day: Day, all: [Pollutant]) -> Pollutant? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = .current
+        
+        let calendar = Calendar.current
+        
+        switch day {
+        case .yesterday:
+            let yesterdayPollutant = all.filter { pollutant in
+                guard let date = dateFormatter.date(from: pollutant.day) else {
+                    return false
+                }
+                
+                let targetDate = calendar.startOfDay(for: date)
+                return calendar.isDateInYesterday(targetDate)
+            }
+            return yesterdayPollutant.first
+        case .today:
+            let todayPollutant = all.filter { pollutant in
+                guard let date = dateFormatter.date(from: pollutant.day) else {
+                    return false
+                }
+                
+                let targetDate = calendar.startOfDay(for: date)
+                return calendar.isDateInToday(targetDate)
+            }
+            return todayPollutant.first
+        case .tomorrow:
+            let tomorrowPollutant = all.filter { pollutant in
+                guard let date = dateFormatter.date(from: pollutant.day) else {
+                    return false
+                }
+                
+                let targetDate = calendar.startOfDay(for: date)
+                return calendar.isDateInTomorrow(targetDate)
+            }
+            return tomorrowPollutant.first
+        }
     }
 }

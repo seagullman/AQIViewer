@@ -25,6 +25,9 @@ struct AQIView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
+                
+                Divider()
+                
                 HStack(spacing: 50) {
                     MeasurementView(measurement: o3, text: "o3")
                     MeasurementView(measurement: pm10, text: "PM10")
