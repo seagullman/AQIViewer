@@ -11,6 +11,18 @@
 		C7B1BB1C2BF852C400D4CC20 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */; };
 		C7B1BB1E2BF852C500D4CC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */; };
 		C7B1BB212BF852C500D4CC20 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB202BF852C500D4CC20 /* Preview Assets.xcassets */; };
+		C7B1BB292BFABBAF00D4CC20 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */; };
+		C7B1BB2B2BFABBD300D4CC20 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */; };
+		C7B1BB2D2BFAC10E00D4CC20 /* AQIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */; };
+		C7B1BB302BFACA6900D4CC20 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */; };
+		C7B1BB322BFB7BF200D4CC20 /* AQIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB312BFB7BF200D4CC20 /* AQIInfo.swift */; };
+		C7B1BB372BFB960D00D4CC20 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB362BFB960D00D4CC20 /* LocationView.swift */; };
+		C7B1BB392BFB96E900D4CC20 /* AQIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB382BFB96E900D4CC20 /* AQIView.swift */; };
+		C7B1BB3B2BFB9D1800D4CC20 /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */; };
+		C7B3DFC82BFB9F140045551C /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B3DFC72BFB9F140045551C /* ForecastView.swift */; };
+		C7B3DFCC2BFC090B0045551C /* AQICardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B3DFCB2BFC090B0045551C /* AQICardView.swift */; };
+		C7B3DFCF2BFC09990045551C /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B3DFCE2BFC09990045551C /* MockData.swift */; };
+		C7B3DFD12BFC0E670045551C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B3DFD02BFC0E670045551C /* Alert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +31,19 @@
 		C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7B1BB202BF852C500D4CC20 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIViewModel.swift; sourceTree = "<group>"; };
+		C7B1BB2E2BFAC50F00D4CC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		C7B1BB312BFB7BF200D4CC20 /* AQIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIInfo.swift; sourceTree = "<group>"; };
+		C7B1BB362BFB960D00D4CC20 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		C7B1BB382BFB96E900D4CC20 /* AQIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIView.swift; sourceTree = "<group>"; };
+		C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
+		C7B3DFC72BFB9F140045551C /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
+		C7B3DFCB2BFC090B0045551C /* AQICardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQICardView.swift; sourceTree = "<group>"; };
+		C7B3DFCE2BFC09990045551C /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		C7B3DFD02BFC0E670045551C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +76,17 @@
 		C7B1BB182BF852C400D4CC20 /* AQIViewer */ = {
 			isa = PBXGroup;
 			children = (
+				C7B3DFCD2BFC098F0045551C /* Utility */,
+				C7B1BB352BFB95FB00D4CC20 /* Views */,
+				C7B1BB2E2BFAC50F00D4CC20 /* Info.plist */,
+				C7B1BB272BFABAF500D4CC20 /* Model */,
 				C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */,
 				C7B1BB1B2BF852C400D4CC20 /* ContentView.swift */,
 				C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */,
 				C7B1BB1F2BF852C500D4CC20 /* Preview Content */,
+				C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */,
+				C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */,
+				C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */,
 			);
 			path = AQIViewer;
 			sourceTree = "<group>";
@@ -65,6 +97,36 @@
 				C7B1BB202BF852C500D4CC20 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C7B1BB272BFABAF500D4CC20 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */,
+				C7B1BB312BFB7BF200D4CC20 /* AQIInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C7B1BB352BFB95FB00D4CC20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7B1BB362BFB960D00D4CC20 /* LocationView.swift */,
+				C7B1BB382BFB96E900D4CC20 /* AQIView.swift */,
+				C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */,
+				C7B3DFC72BFB9F140045551C /* ForecastView.swift */,
+				C7B3DFCB2BFC090B0045551C /* AQICardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C7B3DFCD2BFC098F0045551C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C7B3DFCE2BFC09990045551C /* MockData.swift */,
+				C7B3DFD02BFC0E670045551C /* Alert.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +199,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7B1BB2B2BFABBD300D4CC20 /* NetworkManager.swift in Sources */,
+				C7B1BB372BFB960D00D4CC20 /* LocationView.swift in Sources */,
+				C7B3DFC82BFB9F140045551C /* ForecastView.swift in Sources */,
+				C7B3DFCF2BFC09990045551C /* MockData.swift in Sources */,
+				C7B1BB392BFB96E900D4CC20 /* AQIView.swift in Sources */,
+				C7B3DFCC2BFC090B0045551C /* AQICardView.swift in Sources */,
+				C7B3DFD12BFC0E670045551C /* Alert.swift in Sources */,
+				C7B1BB3B2BFB9D1800D4CC20 /* MeasurementView.swift in Sources */,
 				C7B1BB1C2BF852C400D4CC20 /* ContentView.swift in Sources */,
+				C7B1BB302BFACA6900D4CC20 /* LocationManager.swift in Sources */,
+				C7B1BB322BFB7BF200D4CC20 /* AQIInfo.swift in Sources */,
+				C7B1BB2D2BFAC10E00D4CC20 /* AQIViewModel.swift in Sources */,
 				C7B1BB1A2BF852C400D4CC20 /* AQIViewerApp.swift in Sources */,
+				C7B1BB292BFABBAF00D4CC20 /* APIResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +349,7 @@
 				DEVELOPMENT_TEAM = GREW8M86PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AQIViewer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +379,7 @@
 				DEVELOPMENT_TEAM = GREW8M86PK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AQIViewer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
