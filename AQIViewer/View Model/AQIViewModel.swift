@@ -78,23 +78,27 @@ class AQIViewModel {
         self.alertItem = alertItem
     }
     
+    /**
+     *  Create AQIInfo object from the AQIResponse. AQIInfo contains only what
+     *  is needed to display on screen.
+     */
     private func createAQIInfo(from response: AQIResponse) -> AQIInfo {
         let yesterday = AQIMeasurements(
-            o3: getPollutant(for: .yesterday, all: response.data.forecast.daily.o3),
-            pm10: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm10),
-            pm25: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm25)
+            o3: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.pm25)
         )
         
         let current = AQIMeasurements(
-            o3: getPollutant(for: .today, all: response.data.forecast.daily.o3),
-            pm10: getPollutant(for: .today, all: response.data.forecast.daily.pm10),
-            pm25: getPollutant(for: .today, all: response.data.forecast.daily.pm25)
+            o3: getPollutant(for: .today, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .today, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .today, pollutants: response.data.forecast.daily.pm25)
         )
         
         let tomorrow = AQIMeasurements(
-            o3: getPollutant(for: .tomorrow, all: response.data.forecast.daily.o3),
-            pm10: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm10),
-            pm25: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm25)
+            o3: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.pm25)
         )
         
         let info = AQIInfo(
@@ -110,7 +114,11 @@ class AQIViewModel {
         return info
     }
     
-    private func getPollutant(for day: Day, all: [Pollutant]) -> Pollutant? {
+    /**
+     * Loops through all of the pollutants (from the forecast array) and retrieves
+     * the corresponding pollutants for yesterday, today, tomorrow.
+     */
+    private func getPollutant(for day: Day, pollutants: [Pollutant]) -> Pollutant? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = .current
@@ -119,7 +127,7 @@ class AQIViewModel {
         
         switch day {
         case .yesterday:
-            let yesterdayPollutant = all.filter { pollutant in
+            let yesterdayPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }
@@ -129,7 +137,7 @@ class AQIViewModel {
             }
             return yesterdayPollutant.first
         case .today:
-            let todayPollutant = all.filter { pollutant in
+            let todayPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }
@@ -139,7 +147,7 @@ class AQIViewModel {
             }
             return todayPollutant.first
         case .tomorrow:
-            let tomorrowPollutant = all.filter { pollutant in
+            let tomorrowPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }
