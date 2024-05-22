@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C71C105D2BFD4EDE008A3874 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */; };
 		C7B1BB1A2BF852C400D4CC20 /* AQIViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */; };
 		C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */; };
 		C7B1BB1E2BF852C500D4CC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
 		C7B1BB162BF852C400D4CC20 /* AQIViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AQIViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIViewerApp.swift; sourceTree = "<group>"; };
 		C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIRootView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				C7B3DFC72BFB9F140045551C /* ForecastView.swift */,
 				C7B1BB362BFB960D00D4CC20 /* LocationView.swift */,
 				C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */,
+				C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				C7B3DFD12BFC0E670045551C /* Alert.swift in Sources */,
 				C7B1BB3B2BFB9D1800D4CC20 /* MeasurementView.swift in Sources */,
 				C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */,
+				C71C105D2BFD4EDE008A3874 /* CitySearchView.swift in Sources */,
 				C7B1BB302BFACA6900D4CC20 /* LocationManager.swift in Sources */,
 				C7B1BB322BFB7BF200D4CC20 /* AQIInfo.swift in Sources */,
 				C7B1BB2D2BFAC10E00D4CC20 /* AQIViewModel.swift in Sources */,

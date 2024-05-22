@@ -38,4 +38,25 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         print(#function, location)
     }
+    
+    func geocode(city: String, state: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
+        let address = "\(city), \(state)"
+        let geocoder = CLGeocoder()
+        
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let placemarks = placemarks, let location = placemarks.first?.location else {
+                completion(nil, AQIError.invalidData)
+                return
+            }
+            
+            let coordinate = location.coordinate
+            completion(coordinate, nil)
+        }
+
+    }
 }
