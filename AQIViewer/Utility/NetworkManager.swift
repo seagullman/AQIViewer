@@ -31,17 +31,12 @@ class NetworkManager: NetworkClient {
     
     func fetchAQIDataBy(latitude: Double, longitude: Double) async throws -> AQIResponse {
         let urlString = baseURL.appending("geo:\(latitude);\(longitude)/?token=\(testToken)")
-        
-        print("***** USING THIS URL: \(urlString)")
-        
         return try await makeRequest(urlString: urlString)
     }
     
     func fetchAQIDataBy(cityName: String) async throws -> AQIResponse {
-        if let encodedCityName = encodeForURL(cityName) {
+        if let encodedCityName = encode(cityName) {
             let urlString = baseURL.appending("\(encodedCityName)/?token=\(testToken)")
-            print("***** USING THIS URL (city search): \(urlString)")
-            
             let response: AQIResponse = try await makeRequest(urlString: urlString)
             return response
         } else {
@@ -74,7 +69,7 @@ class NetworkManager: NetworkClient {
         }
     }
     
-    private func encodeForURL(_ string: String) -> String? {
+    private func encode(_ string: String) -> String? {
         return string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
 }

@@ -20,9 +20,8 @@ class AQIViewModel {
     var alertItem: AlertItem?
     var aqiInfo: AQIInfo?
     var isLoading: Bool = false
-    var searchText = ""
     var isShowingDetailView = false
-    var selectedCity: String = ""
+    var selectedCityState: CityState?
     
     func fetchAQIDataByLatLong(lat: Double? = nil, long: Double? = nil) async {
         let lastLocationCoordinate = locationManager.lastLocation?.coordinate
@@ -33,10 +32,8 @@ class AQIViewModel {
             do {
                 let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
                 aqiInfo = createAQIInfo(from: response)
-            } catch {
-                print("***** TODO: catch error for fetchAQIDataBy lat long")
-                handleError(error: error)
-            }
+            } catch { handleError(error: error) }
+            
             isLoading = false
         } else {
             guard
@@ -49,37 +46,17 @@ class AQIViewModel {
             do {
                 let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
                 aqiInfo = createAQIInfo(from: response)
-            } catch {
-                print("***** TODO: catch error for fetchAQIDataBy lat long")
-                handleError(error: error)
-            }
+            } catch { handleError(error: error) }
+            
             isLoading = false
         }
     }
     
-    // TODO: change this function to take in city and state and geocode into coordinates and search by coordinates
-//    func fetchAQIDataBy(cityName: String) async {
-//        do {
-//            isLoading = true
-//            
-//            let response = try await NetworkManager.shared.fetchAQIDataBy(cityName: cityName)
-//            aqiInfo = createAQIInfo(from: response)
-//        } catch {
-//            handleError(error: error)
-//            print("***** TODO: catch error for fetchAQIDataBy(cityName")
-//        }
-//        isLoading = false
-//    }
-    
     func fetchAQIDataBy(cityName: String, state: String) async {
-        locationManager.geocode(city: "Portland", state: "Oregon") { coordinate, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else if let coordinate = coordinate {
-                print("++++++ Latitude: \(coordinate.latitude), Longitude: \(coordinate.longitude)")
-                Task { await self.fetchAQIDataByLatLong(lat: coordinate.latitude, long: coordinate.longitude) }
-            }
-        }
+        do {
+            let coordinate = try await locationManager.geocode(city: cityName, state: state)
+            Task { await self.fetchAQIDataByLatLong(lat: coordinate.latitude, long: coordinate.longitude) }
+        } catch { handleError(error: error) }
     }
     
     // MARK: Private functions

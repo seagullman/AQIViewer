@@ -39,24 +39,28 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         print(#function, location)
     }
     
-    func geocode(city: String, state: String, completion: @escaping (CLLocationCoordinate2D?, Error?) -> Void) {
+    func geocode(city: String, state: String) async throws -> CLLocationCoordinate2D {
         let address = "\(city), \(state)"
         let geocoder = CLGeocoder()
+        let placemarks = try await geocoder.geocodeAddressString(address)
         
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let placemarks = placemarks, let location = placemarks.first?.location else {
-                completion(nil, AQIError.invalidData)
-                return
-            }
-            
-            let coordinate = location.coordinate
-            completion(coordinate, nil)
+        guard let location = placemarks.first?.location else {
+            throw AQIError.invalidResponse
         }
+        
+        return location.coordinate
+        
+//        if let coordinate = location.coo
+//        geocoder.geocodeAddressString(address) { (placemarks, error) in
+//            if let error = error {
+//                completion(nil, error)
+//                return
+//            }
+//            
 
+//            
+//            let coordinate = location.coordinate
+//            completion(coordinate, nil)
+//        }
     }
 }

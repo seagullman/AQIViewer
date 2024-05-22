@@ -31,30 +31,26 @@ struct AQIRootView: View {
                 }
             }
             .navigationDestination(isPresented: $viewModel.isShowingDetailView) {
-                CitySearchView(selectedCity: $viewModel.selectedCity)
+                CitySearchView(selectedCityState: $viewModel.selectedCityState)
             }
 //            .padding()
         }
         .onAppear { fetchAQIData() }
         .onChange(of: viewModel.locationManager.lastLocation) { fetchAQIData() }
         .refreshable { viewModel.locationManager.refreshLocation() }
-//        .searchable(text: $viewModel.searchText, prompt: "Search for city")
-//        .onSubmit(of: .search, runSearch)
         .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         }
-        .onChange(of: viewModel.selectedCity) {
-            Task { await viewModel.fetchAQIDataBy(cityName: "Portland", state: "Maine") }
+        .onChange(of: viewModel.selectedCityState) {
+            guard let cityState = viewModel.selectedCityState else { return }
+            
+            Task { await viewModel.fetchAQIDataBy(cityName: cityState.city, state: cityState.state) }
         }
     }
     
     func fetchAQIData() {
         Task { await viewModel.fetchAQIDataByLatLong() }
     }
-    
-//    func runSearch() {
-//        Task { await viewModel.fetchAQIDataBy(cityName: viewModel.searchText) }
-//    }
 }
 
 #Preview {

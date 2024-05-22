@@ -10,25 +10,27 @@ import SwiftUI
 struct CitySearchView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var searchText: String = ""
-    @Binding var selectedCity: String
+    @Binding var selectedCityState: CityState?
     
-    // Sample list of cities
-    let cities = ["Portland", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "Fort Worth", "Columbus", "Charlotte", "San Francisco", "Indianapolis", "Seattle", "Denver", "Washington"]
-
+    var viewModel = CitySearchViewModel()
+    
+    var filteredCities: [CityState] {
+        return viewModel.cityStatePairs.filter { cityState in
+            cityState.city.localizedCaseInsensitiveContains(searchText) ||
+            cityState.state.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
     var body: some View {
         VStack {
-            // Search TextField
             TextField("Search cities", text: $searchText)
                 .padding()
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
             
-            // List of filtered cities
             List {
-                ForEach(filteredCities, id: \.self) { city in
-                    Text(city)
+                ForEach(filteredCities, id: \.self) { cityState in
+                    Text("\(cityState.city), \(cityState.state)")
                         .onTapGesture {
-                            print("**** \(city) tapped")
-                            selectedCity = city
+                            selectedCityState = cityState
                             dismiss()
                         }
                 }
@@ -37,17 +39,8 @@ struct CitySearchView: View {
         .navigationTitle("City Search")
 //        .padding()
     }
-    
-    // Computed property to filter cities based on search text
-    var filteredCities: [String] {
-        if searchText.isEmpty {
-            return cities
-        } else {
-            return cities.filter { $0.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
 }
 
 #Preview {
-    CitySearchView(selectedCity: .constant(""))
+    CitySearchView(selectedCityState: .constant(CityState(city: "Knoxville", state: "TN")))
 }
