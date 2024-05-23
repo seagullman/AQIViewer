@@ -51,7 +51,6 @@ struct AQICardView: View {
                     }
                 }
                 
-                
                 HStack {
                     Spacer()
                     Text("Last updated \(currentTimestamp())")

@@ -54,9 +54,12 @@ class AQIViewModel {
     
     func fetchAQIDataBy(cityName: String, state: String) async {
         do {
+            isLoading = true
             let coordinate = try await locationManager.geocode(city: cityName, state: state)
             Task { await self.fetchAQIDataByLatLong(lat: coordinate.latitude, long: coordinate.longitude) }
         } catch { handleError(error: error) }
+        
+        isLoading = false
     }
     
     // MARK: Private functions

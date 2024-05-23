@@ -49,18 +49,5 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
         
         return location.coordinate
-        
-//        if let coordinate = location.coo
-//        geocoder.geocodeAddressString(address) { (placemarks, error) in
-//            if let error = error {
-//                completion(nil, error)
-//                return
-//            }
-//            
-
-//            
-//            let coordinate = location.coordinate
-//            completion(coordinate, nil)
-//        }
     }
 }

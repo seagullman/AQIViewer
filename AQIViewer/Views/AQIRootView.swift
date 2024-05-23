@@ -13,7 +13,7 @@ struct AQIRootView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if let sampleAQIInfo = viewModel.aqiInfo {
+                if let sampleAQIInfo = viewModel.aqiInfo, !viewModel.isLoading {
                     AQICardView(aqiInfo: sampleAQIInfo)
                 } else {
                     ProgressView()
@@ -33,7 +33,6 @@ struct AQIRootView: View {
             .navigationDestination(isPresented: $viewModel.isShowingDetailView) {
                 CitySearchView(selectedCityState: $viewModel.selectedCityState)
             }
-//            .padding()
         }
         .onAppear { fetchAQIData() }
         .onChange(of: viewModel.locationManager.lastLocation) { fetchAQIData() }

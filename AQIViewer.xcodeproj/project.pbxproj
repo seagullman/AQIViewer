@@ -95,10 +95,10 @@
 		C7B1BB182BF852C400D4CC20 /* AQIViewer */ = {
 			isa = PBXGroup;
 			children = (
+				C73B25D82BFE187600EB9509 /* US_States_and_Cities.json */,
 				C7B1BB2E2BFAC50F00D4CC20 /* Info.plist */,
 				C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */,
 				C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */,
-				C73B25D82BFE187600EB9509 /* US_States_and_Cities.json */,
 				C7B1BB272BFABAF500D4CC20 /* Model */,
 				C7B1BB1F2BF852C500D4CC20 /* Preview Content */,
 				C7B3DFCD2BFC098F0045551C /* Utility */,
@@ -144,10 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				C7B3DFD02BFC0E670045551C /* Alert.swift */,
+				C73B25DA2BFE2B1500EB9509 /* CityStateCache.swift */,
 				C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */,
 				C7B3DFCE2BFC09990045551C /* MockData.swift */,
 				C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */,
-				C73B25DA2BFE2B1500EB9509 /* CityStateCache.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
