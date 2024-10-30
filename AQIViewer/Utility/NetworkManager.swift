@@ -19,40 +19,45 @@ protocol NetworkClient: AnyObject {
 }
 
 class NetworkManager: NetworkClient {
-
-    static let shared = NetworkManager()
     
-    private let baseURL = "http://api.waqi.info/feed/"
+    private var baseUrlComponents: URLComponents {
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "api.waqi.info"
+        components.path = "/feed/"
+        components.queryItems = [
+            .init(name: "token", value: testToken)
+        ]
+        
+        return components
+    }
     
-    // TODO: this should be stored somewhere secure, but for the scope of this challenge, I am putting it here
+    private let session: URLSession
+    
+    // TODO: this should be stored somewhere secure (Keychain) via config file
     private let testToken = "d92d59027c616462a8a13a93402c7f08a8024b01"
     
-    private init() {}
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
     
     func fetchAQIDataBy(latitude: Double, longitude: Double) async throws -> AQIResponse {
-        let urlString = baseURL.appending("geo:\(latitude);\(longitude)/?token=\(testToken)")
+        let components = updatedComponents(for: "geo:\(latitude);\(longitude)/")
         
-        print("***** USING THIS URL: \(urlString)")
-        
-        return try await makeRequest(urlString: urlString)
+        return try await makeRequest(components: components)
     }
     
     func fetchAQIDataBy(cityName: String) async throws -> AQIResponse {
-        if let encodedCityName = encodeForURL(cityName) {
-            let urlString = baseURL.appending("\(encodedCityName)/?token=\(testToken)")
-            print("***** USING THIS URL (city search): \(urlString)")
-            
-            let response: AQIResponse = try await makeRequest(urlString: urlString)
-            return response
-        } else {
-            throw AQIError.invalidData
-        }
+        let components = updatedComponents(for: cityName)
+        let response: AQIResponse = try await makeRequest(components: components)
+        
+        return response
     }
     
     // MARK: Private functions
     
-    private func makeRequest<T: Decodable>(urlString: String) async throws -> T {
-        guard let url = URL(string: urlString) else {
+    private func makeRequest<T: Decodable>(components: URLComponents) async throws -> T {
+        guard let url = components.url else {
             throw AQIError.invalidUrl
         }
         
@@ -74,7 +79,9 @@ class NetworkManager: NetworkClient {
         }
     }
     
-    private func encodeForURL(_ string: String) -> String? {
-        return string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    private func updatedComponents(for path: String) -> URLComponents {
+        var components = baseUrlComponents
+        components.path += path
+        return components
     }
 }

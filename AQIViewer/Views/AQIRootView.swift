@@ -13,7 +13,7 @@ struct AQIRootView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if let sampleAQIInfo = viewModel.aqiInfo {
+                if let sampleAQIInfo = viewModel.aqiInfo, !viewModel.isLoading {
                     AQICardView(aqiInfo: sampleAQIInfo)
                 } else {
                     ProgressView()
@@ -21,24 +21,34 @@ struct AQIRootView: View {
                 }
             }
             .navigationTitle("AQI Viewer")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        viewModel.isShowingDetailView = true
+                    } label: {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
+                }
+            }
+            .navigationDestination(isPresented: $viewModel.isShowingDetailView) {
+                CitySearchView(selectedCityState: $viewModel.selectedCityState)
+            }
         }
-        .padding()
         .onAppear { fetchAQIData() }
         .onChange(of: viewModel.locationManager.lastLocation) { fetchAQIData() }
         .refreshable { viewModel.locationManager.refreshLocation() }
-        .searchable(text: $viewModel.searchText, prompt: "Search for city")
-        .onSubmit(of: .search, runSearch)
         .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+        }
+        .onChange(of: viewModel.selectedCityState) {
+            guard let cityState = viewModel.selectedCityState else { return }
+            
+            Task { await viewModel.fetchAQIDataBy(cityName: cityState.city, state: cityState.state) }
         }
     }
     
     func fetchAQIData() {
         Task { await viewModel.fetchAQIDataByLatLong() }
-    }
-    
-    func runSearch() {
-        Task { await viewModel.fetchAQIDataBy(cityName: viewModel.searchText) }
     }
 }
 

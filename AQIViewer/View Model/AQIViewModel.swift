@@ -16,42 +16,54 @@ enum Day {
 @Observable
 class AQIViewModel {
     
+    let networkClient: NetworkClient
     let locationManager = LocationManager()
     var alertItem: AlertItem?
     var aqiInfo: AQIInfo?
     var isLoading: Bool = false
-    var searchText = ""
+    var isShowingDetailView = false
+    var selectedCityState: CityState?
     
-    func fetchAQIDataByLatLong() async {
-        let lastLocationCoordinate = locationManager.lastLocation?.coordinate
-        
-        guard
-            let lat = lastLocationCoordinate?.latitude,
-            let long = lastLocationCoordinate?.longitude
-        else { return }
-        
-        isLoading = true
-        
-        do {
-            let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
-            aqiInfo = createAQIInfo(from: response)
-        } catch {
-            print("***** TODO: catch error for fetchAQIDataBy lat long")
-            handleError(error: error)
-        }
-        isLoading = false
+    init(networkClient: NetworkClient = NetworkManager()) {
+        self.networkClient = networkClient
     }
     
-    func fetchAQIDataBy(cityName: String) async {
-        do {
+    func fetchAQIDataByLatLong(lat: Double? = nil, long: Double? = nil) async {
+        let lastLocationCoordinate = locationManager.lastLocation?.coordinate
+        
+        if let lat, let long {
             isLoading = true
             
-            let response = try await NetworkManager.shared.fetchAQIDataBy(cityName: cityName)
-            aqiInfo = createAQIInfo(from: response)
-        } catch {
-            handleError(error: error)
-            print("***** TODO: catch error for fetchAQIDataBy(cityName")
+            do {
+                let response = try await networkClient.fetchAQIDataBy(latitude: lat, longitude: long)
+                aqiInfo = createAQIInfo(from: response)
+            } catch { handleError(error: error) }
+            
+            isLoading = false
+        } else {
+            guard
+                let lat = lastLocationCoordinate?.latitude,
+                let long = lastLocationCoordinate?.longitude
+            else { return }
+            
+            isLoading = true
+            
+            do {
+                let response = try await networkClient.fetchAQIDataBy(latitude: lat, longitude: long)
+                aqiInfo = createAQIInfo(from: response)
+            } catch { handleError(error: error) }
+            
+            isLoading = false
         }
+    }
+    
+    func fetchAQIDataBy(cityName: String, state: String) async {
+        do {
+            isLoading = true
+            let coordinate = try await locationManager.geocode(city: cityName, state: state)
+            Task { await self.fetchAQIDataByLatLong(lat: coordinate.latitude, long: coordinate.longitude) }
+        } catch { handleError(error: error) }
+        
         isLoading = false
     }
     
@@ -74,23 +86,27 @@ class AQIViewModel {
         self.alertItem = alertItem
     }
     
+    /**
+     *  Create AQIInfo object from the AQIResponse. AQIInfo contains only what
+     *  is needed to display on screen.
+     */
     private func createAQIInfo(from response: AQIResponse) -> AQIInfo {
         let yesterday = AQIMeasurements(
-            o3: getPollutant(for: .yesterday, all: response.data.forecast.daily.o3)!,
-            pm10: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm10)!,
-            pm25: getPollutant(for: .yesterday, all: response.data.forecast.daily.pm25)!
+            o3: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .yesterday, pollutants: response.data.forecast.daily.pm25)
         )
         
         let current = AQIMeasurements(
-            o3: getPollutant(for: .today, all: response.data.forecast.daily.o3)!,
-            pm10: getPollutant(for: .today, all: response.data.forecast.daily.pm10)!,
-            pm25: getPollutant(for: .today, all: response.data.forecast.daily.pm25)!
+            o3: getPollutant(for: .today, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .today, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .today, pollutants: response.data.forecast.daily.pm25)
         )
         
         let tomorrow = AQIMeasurements(
-            o3: getPollutant(for: .tomorrow, all: response.data.forecast.daily.o3)!,
-            pm10: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm10)!,
-            pm25: getPollutant(for: .tomorrow, all: response.data.forecast.daily.pm25)!
+            o3: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.o3),
+            pm10: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.pm10),
+            pm25: getPollutant(for: .tomorrow, pollutants: response.data.forecast.daily.pm25)
         )
         
         let info = AQIInfo(
@@ -106,7 +122,11 @@ class AQIViewModel {
         return info
     }
     
-    private func getPollutant(for day: Day, all: [Pollutant]) -> Pollutant? {
+    /**
+     * Loops through all of the pollutants (from the forecast array) and retrieves
+     * the corresponding pollutants for yesterday, today, tomorrow.
+     */
+    private func getPollutant(for day: Day, pollutants: [Pollutant]) -> Pollutant? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = .current
@@ -115,7 +135,7 @@ class AQIViewModel {
         
         switch day {
         case .yesterday:
-            let yesterdayPollutant = all.filter { pollutant in
+            let yesterdayPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }
@@ -125,7 +145,7 @@ class AQIViewModel {
             }
             return yesterdayPollutant.first
         case .today:
-            let todayPollutant = all.filter { pollutant in
+            let todayPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }
@@ -135,7 +155,7 @@ class AQIViewModel {
             }
             return todayPollutant.first
         case .tomorrow:
-            let tomorrowPollutant = all.filter { pollutant in
+            let tomorrowPollutant = pollutants.filter { pollutant in
                 guard let date = dateFormatter.date(from: pollutant.day) else {
                     return false
                 }

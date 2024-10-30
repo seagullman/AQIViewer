@@ -20,6 +20,7 @@ struct AQIView: View {
                 VStack {
                     Text(String(aqi ?? 0))
                         .font(.system(size: 50))
+                        .foregroundStyle(aqiTextColor())
                     
                     Text("AQI")
                         .font(.subheadline)
@@ -35,6 +36,29 @@ struct AQIView: View {
                 }
             }
         }
+    }
+    
+    func aqiTextColor() -> Color {
+        guard let aqi else { return .black }
+        
+        let color: Color
+        switch aqi {
+        case 0...50:
+            color = .green
+        case 51...100:
+            color = .yellow
+        case 101...150:
+            color = .orange
+        case 151...200:
+            color = .red
+        case 201...300:
+            color = .purple
+        case 300...:
+            color = .brown
+        default:
+            color = .black
+        }
+        return color
     }
 }
 

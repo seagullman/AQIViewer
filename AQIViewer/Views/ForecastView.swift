@@ -16,7 +16,11 @@ struct ForecastView: View {
     
     var body: some View {
         VStack(spacing: 5) {
-            Text(title)
+            if let _ = o3, let _ = pm10, let _ = pm25 {
+                Text(title)
+            } else {
+                Text("No data")
+            }
             
             HStack {
                 MeasurementView(measurement: o3, text: "o3")

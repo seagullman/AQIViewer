@@ -34,8 +34,25 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        lastLocation = location
+        #if targetEnvironment(simulator)
+            // Use hardcoded location if the app is running on simulator
+            lastLocation = CLLocation(latitude: 35.994034, longitude: -78.898621)
+        #else
+            lastLocation = location
+        #endif
+        
         locationManager.stopUpdatingLocation()
-        print(#function, location)
+    }
+    
+    func geocode(city: String, state: String) async throws -> CLLocationCoordinate2D {
+        let address = "\(city), \(state)"
+        let geocoder = CLGeocoder()
+        let placemarks = try await geocoder.geocodeAddressString(address)
+        
+        guard let location = placemarks.first?.location else {
+            throw AQIError.invalidResponse
+        }
+        
+        return location.coordinate
     }
 }

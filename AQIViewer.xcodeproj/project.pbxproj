@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C71C105D2BFD4EDE008A3874 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */; };
+		C73B25D72BFE169800EB9509 /* CitySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73B25D62BFE169800EB9509 /* CitySearchViewModel.swift */; };
+		C73B25D92BFE187600EB9509 /* US_States_and_Cities.json in Resources */ = {isa = PBXBuildFile; fileRef = C73B25D82BFE187600EB9509 /* US_States_and_Cities.json */; };
+		C73B25DB2BFE2B1500EB9509 /* CityStateCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73B25DA2BFE2B1500EB9509 /* CityStateCache.swift */; };
+		C73B25DD2BFE2B8B00EB9509 /* CityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73B25DC2BFE2B8B00EB9509 /* CityState.swift */; };
 		C7B1BB1A2BF852C400D4CC20 /* AQIViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */; };
 		C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */; };
 		C7B1BB1E2BF852C500D4CC20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */; };
@@ -26,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
+		C73B25D62BFE169800EB9509 /* CitySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewModel.swift; sourceTree = "<group>"; };
+		C73B25D82BFE187600EB9509 /* US_States_and_Cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = US_States_and_Cities.json; sourceTree = "<group>"; };
+		C73B25DA2BFE2B1500EB9509 /* CityStateCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStateCache.swift; sourceTree = "<group>"; };
+		C73B25DC2BFE2B8B00EB9509 /* CityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityState.swift; sourceTree = "<group>"; };
 		C7B1BB162BF852C400D4CC20 /* AQIViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AQIViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIViewerApp.swift; sourceTree = "<group>"; };
 		C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AQIRootView.swift; sourceTree = "<group>"; };
@@ -61,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				C7B1BB2C2BFAC10E00D4CC20 /* AQIViewModel.swift */,
+				C73B25D62BFE169800EB9509 /* CitySearchViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -84,6 +95,7 @@
 		C7B1BB182BF852C400D4CC20 /* AQIViewer */ = {
 			isa = PBXGroup;
 			children = (
+				C73B25D82BFE187600EB9509 /* US_States_and_Cities.json */,
 				C7B1BB2E2BFAC50F00D4CC20 /* Info.plist */,
 				C7B1BB192BF852C400D4CC20 /* AQIViewerApp.swift */,
 				C7B1BB1D2BF852C500D4CC20 /* Assets.xcassets */,
@@ -109,6 +121,7 @@
 			children = (
 				C7B1BB282BFABBAF00D4CC20 /* APIResponse.swift */,
 				C7B1BB312BFB7BF200D4CC20 /* AQIInfo.swift */,
+				C73B25DC2BFE2B8B00EB9509 /* CityState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,6 +132,7 @@
 				C7B3DFCB2BFC090B0045551C /* AQICardView.swift */,
 				C7B1BB1B2BF852C400D4CC20 /* AQIRootView.swift */,
 				C7B1BB382BFB96E900D4CC20 /* AQIView.swift */,
+				C71C105C2BFD4EDE008A3874 /* CitySearchView.swift */,
 				C7B3DFC72BFB9F140045551C /* ForecastView.swift */,
 				C7B1BB362BFB960D00D4CC20 /* LocationView.swift */,
 				C7B1BB3A2BFB9D1800D4CC20 /* MeasurementView.swift */,
@@ -130,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				C7B3DFD02BFC0E670045551C /* Alert.swift */,
+				C73B25DA2BFE2B1500EB9509 /* CityStateCache.swift */,
 				C7B1BB2F2BFACA6900D4CC20 /* LocationManager.swift */,
 				C7B3DFCE2BFC09990045551C /* MockData.swift */,
 				C7B1BB2A2BFABBD300D4CC20 /* NetworkManager.swift */,
@@ -196,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7B1BB212BF852C500D4CC20 /* Preview Assets.xcassets in Resources */,
+				C73B25D92BFE187600EB9509 /* US_States_and_Cities.json in Resources */,
 				C7B1BB1E2BF852C500D4CC20 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,17 +226,21 @@
 				C7B1BB2B2BFABBD300D4CC20 /* NetworkManager.swift in Sources */,
 				C7B1BB372BFB960D00D4CC20 /* LocationView.swift in Sources */,
 				C7B3DFC82BFB9F140045551C /* ForecastView.swift in Sources */,
+				C73B25DB2BFE2B1500EB9509 /* CityStateCache.swift in Sources */,
 				C7B3DFCF2BFC09990045551C /* MockData.swift in Sources */,
 				C7B1BB392BFB96E900D4CC20 /* AQIView.swift in Sources */,
 				C7B3DFCC2BFC090B0045551C /* AQICardView.swift in Sources */,
 				C7B3DFD12BFC0E670045551C /* Alert.swift in Sources */,
 				C7B1BB3B2BFB9D1800D4CC20 /* MeasurementView.swift in Sources */,
 				C7B1BB1C2BF852C400D4CC20 /* AQIRootView.swift in Sources */,
+				C71C105D2BFD4EDE008A3874 /* CitySearchView.swift in Sources */,
 				C7B1BB302BFACA6900D4CC20 /* LocationManager.swift in Sources */,
+				C73B25DD2BFE2B8B00EB9509 /* CityState.swift in Sources */,
 				C7B1BB322BFB7BF200D4CC20 /* AQIInfo.swift in Sources */,
 				C7B1BB2D2BFAC10E00D4CC20 /* AQIViewModel.swift in Sources */,
 				C7B1BB1A2BF852C400D4CC20 /* AQIViewerApp.swift in Sources */,
 				C7B1BB292BFABBAF00D4CC20 /* APIResponse.swift in Sources */,
+				C73B25D72BFE169800EB9509 /* CitySearchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
