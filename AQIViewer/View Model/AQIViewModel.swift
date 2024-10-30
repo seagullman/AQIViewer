@@ -16,12 +16,17 @@ enum Day {
 @Observable
 class AQIViewModel {
     
+    let networkClient: NetworkClient
     let locationManager = LocationManager()
     var alertItem: AlertItem?
     var aqiInfo: AQIInfo?
     var isLoading: Bool = false
     var isShowingDetailView = false
     var selectedCityState: CityState?
+    
+    init(networkClient: NetworkClient = NetworkManager()) {
+        self.networkClient = networkClient
+    }
     
     func fetchAQIDataByLatLong(lat: Double? = nil, long: Double? = nil) async {
         let lastLocationCoordinate = locationManager.lastLocation?.coordinate
@@ -30,7 +35,7 @@ class AQIViewModel {
             isLoading = true
             
             do {
-                let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
+                let response = try await networkClient.fetchAQIDataBy(latitude: lat, longitude: long)
                 aqiInfo = createAQIInfo(from: response)
             } catch { handleError(error: error) }
             
@@ -44,7 +49,7 @@ class AQIViewModel {
             isLoading = true
             
             do {
-                let response = try await NetworkManager.shared.fetchAQIDataBy(latitude: lat, longitude: long)
+                let response = try await networkClient.fetchAQIDataBy(latitude: lat, longitude: long)
                 aqiInfo = createAQIInfo(from: response)
             } catch { handleError(error: error) }
             
